@@ -1,9 +1,10 @@
 <script>
     let { post } = $props();
-    import { api, known_users } from "$lib/store.svelte";
+    import { api, known_users, base } from "$lib/store.svelte";
     import { error } from "@sveltejs/kit";
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
+    import Image from "./Image.svelte";
 
     let error_message = $state("");
     let user_info = $state([]);
@@ -36,9 +37,6 @@
         }
     })();
 
-    let image_class = $state("img-hidden");
-    let loader_class = $state("img-circle");
-
 </script>
 
 <style>
@@ -64,12 +62,6 @@
     flex-direction: column;
 }
 
-pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
 button {
     appearance: none;
     background-color: transparent;
@@ -77,31 +69,16 @@ button {
     color: inherit;
 }
 
-.img-circle {
-    background-color: var(--border-secondary);
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
-    border-radius: 100%;
-    margin-right: 10px;
-}
-
-.img-hidden {
-    display: none;
-}
-
 </style>
 
 <div class="main">
-    <div class="{loader_class}"></div>
 
-    <img class="img-circle {image_class}" src={user_info[7]} onload={()=>{image_class="img-circle"; loader_class="img-hidden"}} alt="pfp">
+    <Image src={user_info[7]} width=40px height=40px/>
 
     <div class="message">
         <div style="flex: 1; display: flex">
 
-            <button onclick={()=>goto("/lwim/user?name="+user_info[1])}>
+            <button onclick={()=>goto(base+"user?name="+user_info[1])}>
                 <h3>{user_info[5]}</h3>
             </button>
 

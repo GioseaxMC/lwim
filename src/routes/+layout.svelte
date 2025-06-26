@@ -4,6 +4,7 @@
 	let { children } = $props();
     import { onMount } from "svelte";
     import { mobile } from "$lib/store.svelte";
+    import "../app.css";
 
 	let open = $state(!mobile);
 </script>
@@ -60,6 +61,18 @@ button {
     margin-right: 15px;
 }
 
+/* app.css */
+.overlay {
+  position: fixed;
+  width: 100vh;
+  /* top: 50px; */
+  /* left: 0; */
+  /* height: calc(100% - 50px); */
+  /* z-index: 1000; */
+  /* box-shadow: 2px 0 10px rgba(0,0,0,0.3); */
+}
+
+
 </style>
 
 <nav>
@@ -73,7 +86,13 @@ button {
 
 <div style="padding-top: 50px;">
     <div style="display: flex; flex-direction: row;">
-        <Sidebar bind:open={open}/>
+        {#if mobile}
+            <div class="overlay">
+                <Sidebar bind:open={open}/>
+            </div>
+        {:else}
+            <Sidebar bind:open={open}/>
+        {/if}
         <div style="flex: 1; max-height: calc(100vh - 50px); overflow: auto;">
             {@render children?.()}
         </div>

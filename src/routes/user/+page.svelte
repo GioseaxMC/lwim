@@ -3,6 +3,7 @@
     import Input from "$lib/components/ui/Input.svelte";
     import Button from "$lib/components/ui/Button.svelte";
     import Posts from "$lib/components/ui/Posts.svelte";
+    import Image from "$lib/components/ui/Image.svelte";
     import { api, user } from "$lib/store.svelte";
     import { dev } from "$app/environment";
     import { goto } from "$app/navigation";
@@ -86,11 +87,16 @@
 
 <div class="center-container">
     <div class="container" style="background: linear-gradient(180deg, var(--primary) -50%, {usr[6]} 200%);">
-        <div style="display: flex; gap: 10px">
-            <h3>{usr[5]}</h3>
-            <h3 style="color: var(--border-secondary)">#{usr[0]}</h3>
+        <div style="display: flex">
+            <Image src={usr[7]} width=75px height=75px/>
+            <div>
+                <div style="display: flex; gap: 10px">
+                    <h3>{usr[5]}</h3>
+                    <h3 class="st" style="color: var(--border)">#{usr[0]}</h3>
+                </div>
+                <p class="st" style="color: var(--border)">@{usr[1]}</p>
+            </div>
         </div>
-        <p class="st" style="color: var(--border-secondary)">@{usr[1]}</p>
         <br>
         <p class="st">Joined: {usr[3]}</p>
     </div>
